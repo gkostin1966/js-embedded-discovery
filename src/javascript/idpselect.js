@@ -1309,8 +1309,16 @@ function IdPSelectUI() {
         // And then the cookie based ones
         //
         userSelectedIdPs = retrieveUserSelectedIdPs();
-        for (i = offset, j=0; i < userSelectedIdPs.length && i < maxPreferredIdPs; i++, j++){
-            idps.push(getIdPFor(userSelectedIdPs[j]));
+        for (i = offset, j=0; j < userSelectedIdPs.length && i < maxPreferredIdPs; j++){
+            var cur_idp = getIdPFor(userSelectedIdPs[j]);
+            if (typeof idps.indexOf === 'undefined') {
+                idps.push(cur_idp);
+                i++;
+            }
+            else if (idps.indexOf(cur_idp) === -1) {
+                idps.push(cur_idp);
+                i++;
+            }
         }
         return idps;
     };
