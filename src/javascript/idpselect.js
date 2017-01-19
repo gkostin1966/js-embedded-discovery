@@ -632,7 +632,7 @@ function IdPSelectUI() {
         }
         if (h> maxHeight) {
             w = (maxHeight/h) * w;
-            w = maxHeight;
+            h = maxHeight;
         }
             
         img.setAttribute('width', w);
