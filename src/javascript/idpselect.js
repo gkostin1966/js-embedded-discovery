@@ -304,7 +304,24 @@ function IdPSelectUI() {
                 }
             }
         }
-        if (policy != 'urn:oasis:names:tc:SAML:profiles:SSO:idpdiscovery-protocol:single') {
+        // Test protocol
+        var allowableProtocols;
+        if (null == paramsSupplied.allowableProtocols) {
+            allowableProtocols = ["urn:oasis:names:tc:SAML:profiles:SSO:idpdiscovery-protocol:single"];
+        } else {
+            allowableProtocols = paramsSupplied.allowableProtocols;
+        }
+
+        var protocolOk = false;
+        for (var i = 0 ; i < allowableProtocols.length; i++) {
+            var protocol = allowableProtocols[i];
+            if (policy == protocol) {
+                protocolOk = true;
+                break;
+            }
+        }
+
+        if (!protocolOk) {
             fatal(getLocalizedMessage('fatal.wrongProtocol'));
             return false;
         }
