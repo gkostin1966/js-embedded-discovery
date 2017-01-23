@@ -82,6 +82,12 @@ function IdPSelectUI() {
             return;
         }
 
+        idpSelectDiv = document.getElementById(parms.insertAtDiv);
+        if(!idpSelectDiv){
+            fatal(getLocalizedMessage('fatal.divMissing'));
+            return;
+        }
+
         //
         // Quick test for auto-dispatch
         //
@@ -101,15 +107,9 @@ function IdPSelectUI() {
                 //
                 // Go there
                 //
-                location.href = returnString + retString;
+                dispatchTo(idpSelectDiv, returnString + retString);
                 return;
             }
-        }
-
-        idpSelectDiv = document.getElementById(parms.insertAtDiv);
-        if(!idpSelectDiv){
-            fatal(getLocalizedMessage('fatal.divMissing'));
-            return;
         }
 
         if (!load(parms.dataSource)) {
@@ -343,11 +343,12 @@ function IdPSelectUI() {
         //
         if (isPassive) {
             var prefs = retrieveUserSelectedIdPs();
+            var parentDiv = document.getElementById(parmsSupplied.insertAtDiv);
             if (prefs.length == 0) {
                 //
                 // no preference, go back
                 //
-                location.href = returnString;
+                dispatchTo(parentDiv, returnString);
                 return false;
             } else {
                 var retString = returnIDParam + '=' + encodeURIComponent(prefs[0]);
@@ -359,7 +360,8 @@ function IdPSelectUI() {
                 } else {
                     retString = '&' + retString;
                 }
-                location.href = returnString + retString;
+
+                dispatchTo(parentDiv, returnString + retString);
                 return false;
             }            
         }
@@ -458,6 +460,20 @@ function IdPSelectUI() {
         return (browserName == 'Microsoft Internet Explorer') ;
     } ;
 
+    /**
+     * Alternative to location.href=string
+     *
+     * Needed to cache bust Firefox
+     */
+
+    var dispatchTo = function(theParent, whereTo) {
+        var aval = document.createElement('a');
+
+        aval.href = whereTo;
+        theParent.appendChild(aval);
+
+        aval.click();
+    }
 
     /**
        Loads the data used by the IdP selection UI.  Data is loaded 
