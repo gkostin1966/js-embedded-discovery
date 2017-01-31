@@ -4,7 +4,7 @@ Release:	1
 Summary:	Client-side federation discovery service for SAML-based SSO
 Group:		Productivity/Networking/Security
 Vendor:		Shibboleth Consortium
-License:	Apache 2.0
+License:	Apache-2.0
 URL:		http://shibboleth.net/
 Source:		%{name}-%{version}.tar.gz
 BuildArch:	noarch
@@ -95,6 +95,7 @@ cd /
 %changelog
 * Mon Jun 6 2016 Scott Cantor <cantor.2@osu.edu> - 1.2.0-1
 - Update version
+- Fix license name
 
 * Wed Apr 29 2015  Scott Cantor  <cantor.2@osu.edu>  - 1.1.0-1
 - Update version
