@@ -77,14 +77,13 @@ function IdPSelectUI() {
        method for the IdPSelectUI class.
     */
     this.draw = function(parms){
-
-        if (!setupLocals(parms)) {
-            return;
-        }
-
         idpSelectDiv = document.getElementById(parms.insertAtDiv);
         if(!idpSelectDiv){
             fatal(getLocalizedMessage('fatal.divMissing'));
+            return;
+        }
+
+        if (!setupLocals(parms)) {
             return;
         }
 
